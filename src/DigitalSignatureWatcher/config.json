@@ -1,0 +1,18 @@
+﻿{
+  "watch_folders": [
+    {
+      "description": "for kool form batch xxxxxx purpose",
+      "watch_folder_in": "D:\\temp\\testSignatureService\\watcher_in_1",
+      "watch_folder_out": "D:\\temp\\testSignatureService\\watcher_out_1",
+      "digital_signature_service": "http://localhost:50740/api/",
+      "template_id": ""
+    },
+    {
+      "description": "for kool form batch yyyyyyy purpose",
+      "watch_folder_in": "D:\\temp\\testSignatureService\\watcher_in_2",
+      "watch_folder_out": "D:\\temp\\testSignatureService\\watcher_out_2",
+      "digital_signature_service": "http://localhost:50740/api/",
+      "template_id": ""
+    }
+  ]
+}
