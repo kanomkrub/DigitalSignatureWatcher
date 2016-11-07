@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace DigitalSignatureWatcher
 {
@@ -13,37 +14,18 @@ namespace DigitalSignatureWatcher
         {
             var folders = GetConfiguration();
 
-            foreach(var folder in folders)
+            foreach (var folder in folders.Where(t => t.enable))
             {
-
-
+                Task.Run(() =>
+                {
+                    var worker = new Worker(folder.digital_signature_service, folder.template_id, folder.watch_folder_in, folder.watch_folder_out);
+                    worker.Start();
+                });
+                Console.Out.WriteLine($"Start watch for '{folder.watch_folder_in}' desc:{folder.description}");
             }
-
-            //var servicePath = config["digital_signatue_service"];
-            //var watcher = new FileSystemWatcher(@"D:\temp\testSignatureService");
-            //watcher.IncludeSubdirectories = true;
-            //watcher.Filter = "";
-            ////watcher.Renamed += new RenamedEventHandler(renamed);
-            ////watcher.Deleted += new FileSystemEventHandler(changed);
-            ////watcher.Changed += new FileSystemEventHandler(changed);
-            //watcher.Created += new FileSystemEventHandler(changed);
-            //watcher.EnableRaisingEvents = true;
-
-            Console.ReadKey();
+            Console.Out.WriteLine("please enter to exit");
+            Console.ReadLine();
         }
-
-        private static void renamed(object sender, RenamedEventArgs e)
-        {
-            Console.WriteLine(DateTime.Now + ": " +
-                e.ChangeType + " " + e.FullPath);
-        }
-
-        private static void changed(object sender, FileSystemEventArgs e)
-        {
-            Console.WriteLine(DateTime.Now + ": " +
-                e.ChangeType + " " + e.FullPath);
-        }
-
         public class FolderConfig
         {
             public string description { get; set; }
@@ -51,6 +33,7 @@ namespace DigitalSignatureWatcher
             public string watch_folder_out { get; set; }
             public string digital_signature_service { get; set; }
             public string template_id { get; set; }
+            public bool enable { get; set; }
         }
         public static List<FolderConfig> GetConfiguration()
         {
@@ -68,7 +51,8 @@ namespace DigitalSignatureWatcher
                     watch_folder_in = folder.Single(t => t.Key == "watch_folder_in").Value,
                     watch_folder_out = folder.Single(t => t.Key == "watch_folder_out").Value,
                     digital_signature_service = folder.Single(t => t.Key == "digital_signature_service").Value,
-                    template_id = folder.Single(t => t.Key == "template_id").Value
+                    template_id = folder.Single(t => t.Key == "template_id").Value,
+                    enable = bool.Parse(folder.Single(t => t.Key == "enable").Value)
                 });
             }
             return configs;

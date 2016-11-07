@@ -1,18 +1,20 @@
 ﻿{
   "watch_folders": [
     {
+      "enable": true,
       "description": "for kool form batch xxxxxx purpose",
       "watch_folder_in": "D:\\temp\\testSignatureService\\watcher_in_1",
       "watch_folder_out": "D:\\temp\\testSignatureService\\watcher_out_1",
-      "digital_signature_service": "http://localhost:50740/api/",
-      "template_id": ""
+      "digital_signature_service": "http://172.20.36.201:7077/api/",
+      "template_id": "b73e5835-0e14-4237-954f-487d3946e5d8"
     },
     {
+      "enable": false,
       "description": "for kool form batch yyyyyyy purpose",
       "watch_folder_in": "D:\\temp\\testSignatureService\\watcher_in_2",
       "watch_folder_out": "D:\\temp\\testSignatureService\\watcher_out_2",
       "digital_signature_service": "http://localhost:50740/api/",
-      "template_id": ""
+      "template_id": "b73e5835-0e14-4237-954f-487d3946e5d8"
     }
   ]
 }

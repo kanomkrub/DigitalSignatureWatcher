@@ -28,11 +28,11 @@ namespace TestDigitalSignatureServiceApi
                 return templates;
             }
         }
-        public void BurnFields(string path_in, string path_out, string template_id)
+        public void BurnFields(string path_in, string path_out, string id)
         {
             var request = new
             {
-                template_id = template_id,
+                id = id,
                 path_in = path_in,
                 path_out = path_out
             };
@@ -45,11 +45,11 @@ namespace TestDigitalSignatureServiceApi
                 response.EnsureSuccessStatusCode();
             }
         }
-        public byte[] BurnFields(byte[] pdf_in, string template_id)
+        public byte[] BurnFields(byte[] pdf_in, string id)
         {
             var request = new
             {
-                template_id = template_id,
+                id = id,
                 bytes = pdf_in
             };
             var requestContent = new StringContent(JsonConvert.SerializeObject(request), System.Text.Encoding.UTF8, "application/json");
